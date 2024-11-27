@@ -12,25 +12,44 @@ public class GameBoard extends JFrame implements MouseListener, MouseMotionListe
         // Init the frame
         JFrame gameWindow = new JFrame("Chess by Friis");
         gameWindow.setLocationRelativeTo(null);
+        gameWindow.setResizable(false);
 
         // Init the panel to paint the board with the squares
         JPanel pl = new JPanel(){
             @Override
             public void paint(Graphics g) {
+
+                int squareSize = 64;
+
+                int offset = 20;
+
                 for(int x = 0; x < 8; x++) {
                     for(int y = 0; y < 8; y++) {
+                        // Modulo (%) operator returns the remainder of a division, i.e., 10 / 3 = 3 with remainder 1.
                         if((x % 2 == 0 && y % 2 == 0) || (x % 2 != 0 && y % 2 != 0)) {
-                            g.setColor(Color.gray);
-                        } else {
                             g.setColor(Color.white);
+                        } else {
+                            g.setColor(Color.gray);
                         }
-                        g.fillRect(x*64, y*64, 64, 64);
+                        g.fillRect((x+1)*squareSize, (y+1)*squareSize, squareSize, squareSize);
                     }
+                }
+                g.setFont(new Font("Helvetica", Font.BOLD, 12));
+                g.setColor(Color.black);
+
+                for(int col = 0; col < 8; col++) {
+                    String cLabel = String.valueOf((char) ('A' + col));
+                    g.drawString(cLabel, (col+1) * squareSize + squareSize / 2 - 6, squareSize - offset / 2);
+                }
+
+                for (int row = 0; row < 8; row++) {
+                    String label = String.valueOf(8 - row);
+                    g.drawString(label, squareSize - offset, (row+1) * squareSize + squareSize / 2 + 6);
                 }
             }
         };
-        // Board consists of 64 squares -> 8 * 8
-        pl.setPreferredSize(new Dimension(512, 512));
+        // Board consists of 64 squares -> 8 * 8 (dimension there 512 * 512 with extra for row and column ids)
+        pl.setPreferredSize(new Dimension(576, 576));
         gameWindow.add(pl);
         gameWindow.pack();
         gameWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
