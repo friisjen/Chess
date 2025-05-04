@@ -10,9 +10,9 @@ public class GameBoard extends JFrame implements MouseListener, MouseMotionListe
 
     public GameBoard() {
         // Init the frame
-        JFrame gameWindow = new JFrame("Chess by Friis");
-        gameWindow.setLocationRelativeTo(null);
-        gameWindow.setResizable(false);
+        setTitle("Game Board");
+        setLocationRelativeTo(null);
+        setResizable(false);
 
         // Init the panel to paint the board with the squares
         JPanel pl = new JPanel(){
@@ -50,10 +50,10 @@ public class GameBoard extends JFrame implements MouseListener, MouseMotionListe
         };
         // Board consists of 64 squares -> 8 * 8 (dimension there 512 * 512 with extra for row and column ids)
         pl.setPreferredSize(new Dimension(576, 576));
-        gameWindow.add(pl);
-        gameWindow.pack();
-        gameWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        gameWindow.setVisible(true);
+        add(pl);
+        pack();
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setVisible(true);
     }
 
     public static void main(String[] args) {
